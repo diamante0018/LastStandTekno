@@ -1,4 +1,5 @@
 ﻿using InfinityScript;
+using System;
 using System.Collections.Generic;
 
 namespace LastStandTekno
@@ -21,7 +22,7 @@ namespace LastStandTekno
 
         public void OnWeaponChange(Entity player, string weapon)
         {
-            if (weapon.Equals("c4death_mp"))
+            if (weapon.Equals("c4death_mp", StringComparison.InvariantCultureIgnoreCase))
             {
                 AfterDelay(500, () =>
                 {
@@ -35,7 +36,7 @@ namespace LastStandTekno
 
         private void ISTest_Notified(string arg1, Parameter[] arg2)
         {
-            if (arg1.Equals("player_last_stand"))
+            if (arg1.Equals("player_last_stand", StringComparison.InvariantCultureIgnoreCase))
             {
                 Entity player = playerStack.Pop();
                 player.TakeAllWeapons();
