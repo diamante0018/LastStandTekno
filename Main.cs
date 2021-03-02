@@ -13,6 +13,8 @@ namespace LastStandTekno
             playerStack = new Stack<Entity>();
 
             PlayerConnected += OnPlayerConnected;
+
+            Log.Write(LogLevel.Info, "Loaded Last Stand DLL made by Diavolo#6969");
         }
 
         public void OnPlayerConnected(Entity player)
