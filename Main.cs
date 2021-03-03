@@ -1,20 +1,16 @@
 ﻿using InfinityScript;
 using System;
-using System.Collections.Generic;
 
 namespace LastStandTekno
 {
     public class Main : BaseScript
     {
-        private Stack<Entity> playerStack;
+        private int lastPlayer;
         public Main()
         {
             Notified += ISTest_Notified;
-            playerStack = new Stack<Entity>();
-
             PlayerConnected += OnPlayerConnected;
-
-            Log.Write(LogLevel.Info, "Loaded Last Stand DLL made by Diavolo#6969");
+            Log.Write(LogLevel.Info, "Loaded Last Stand DLL made by Diavolo#6969 1.1");
         }
 
         public void OnPlayerConnected(Entity player)
@@ -40,18 +36,16 @@ namespace LastStandTekno
         {
             if (arg1.Equals("player_last_stand", StringComparison.InvariantCultureIgnoreCase))
             {
-                Entity player = playerStack.Pop();
+                Entity player = Entity.GetEntity(lastPlayer);
+
                 player.TakeAllWeapons();
                 player.GiveWeapon("iw5_barrett_mp");
                 player.SwitchToWeaponImmediate("iw5_barrett_mp");
                 player.Call("SetWeaponAmmoClip", "iw5_barrett_mp", 0);
                 player.Call("SetWeaponAmmoStock", "iw5_barrett_mp", 0);
-
-                //Cleanup
-                playerStack.Clear();
             }
         }
 
-        public override void OnPlayerDamage(Entity player, Entity inflictor, Entity attacker, int damage, int dFlags, string mod, string weapon, Vector3 point, Vector3 dir, string hitLoc) => playerStack.Push(player);
+        public override void OnPlayerDamage(Entity player, Entity inflictor, Entity attacker, int damage, int dFlags, string mod, string weapon, Vector3 point, Vector3 dir, string hitLoc) => lastPlayer = player.EntRef;
     }
 }
